@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+*{
+    font-family: 'Pangolin';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    background-color: rgb(120, 197, 238);
+    font-size: 1.5rem;
+    color: rgb(12, 107, 131);
+    height: 3rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body{
+    background-image: url("assets/inicio.png");
+    color: rgb(93, 176, 25);
+}
+
+main{
+    margin: 12rem;
+}
+
+footer{
+    background-color: #1E2A7B;
+}
+
+footer a{
+    color: #CF2CFD;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
