@@ -1,5 +1,5 @@
 <?php
-require_once '../scripts/init.php';
+require_once '../init.php';
 
 $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
 $endereco = isset($_POST['endereco']) ? $_POST['endereco'] : null;
@@ -11,11 +11,11 @@ if (empty($nome) || empty($endereco) || empty($telefone) || empty($email)) {
 }
 
 $PDO = db_connect();
-$sql = "INSERT INTO livro (nome, endereco, telefone, email) VALUES (:nome, :endereco, :telefone, :email)";
+$sql = "INSERT INTO Usuario (NmUsuario, Endereco, FoneUsuario, EmailUsuario) VALUES (:nome, :endereco, :telefone, :email)";
 $stmt = $PDO->prepare($sql);
 
 $stmt->bindParam(':nome', $nome);
-$stmt->bindParam(':endereco', $autor);
+$stmt->bindParam(':endereco', $endereco);
 $stmt->bindParam(':telefone', $telefone);
 $stmt->bindParam(':email', $email);
 
