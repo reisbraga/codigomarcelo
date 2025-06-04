@@ -1,52 +1,30 @@
 <?php
-include('../config/database.php');
+    require_once '../init.php';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $Id = isset($_POST['Id']) ? $_POST['Id'] : null;
+    $nomeproduto = isset($_POST['nomeproduto']) ? $_POST['nomeproduto'] : null;
+    $preco = isset($_POST['preco']) ? $_POST['preco'] : null;
+    $qtdestoque = isset($_POST['qtdestoque']) ? $_POST['qtdestoque'] : null;
+    $desc = isset($_POST['desc']) ? $_POST['desc'] : null;
 
-    // Busca o produto pelo id
-    $sql = "SELECT * FROM produtos WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $produto = $stmt->fetch();
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
-        $preco = $_POST['preco'];
-        $imagem = $_FILES['imagem']['name'];
-
-        // Se uma nova imagem foi carregada, faça o upload
-        if ($imagem) {
-            $targetDir = "../assets/images/";
-            $targetFile = $targetDir . basename($imagem);
-            move_uploaded_file($_FILES['imagem']['tmp_name'], $targetFile);
-        } else {
-            $imagem = $produto['imagem'];  // Mantém a imagem anterior
-        }
-
-        // Atualiza no banco de dados
-        $sql = "UPDATE produtos SET nome = ?, descricao = ?, preco = ?, imagem = ? WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nome, $descricao, $preco, $imagem, $id]);
-
-        echo "Produto atualizado com sucesso!";
+    if (empty($Id) || empty($nomeproduto) || empty($preco) || empty($qtdestoque) || empty($desc)) {
+        header('Location: ../msg/msgErro.html');
+        exit;
     }
-}
+
+    $PDO = db_connect();
+    $sql = "UPDATE Produto SET NmProduto = :nomeproduto, PrecoProduto = :preco, QtdEstoqueProduto = :qtdestoque, DescProduto = :desc WHERE idProduto = :Id";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':nomeproduto', $nomeproduto);
+    $stmt->bindParam(':preco', $preco);
+    $stmt->bindParam(':qtdestoque', $qtdestoque, PDO::PARAM_INT);
+    $stmt->bindParam(':desc', $desc);
+    $stmt->bindParam(':Id', $Id, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        header('Location: ../msg/msgSucesso.html');
+    } else {
+        header('Location: ../msg/msgErro.html');
+    }
+    exit;
 ?>
-
-<form action="editProduto.php?id=<?php echo $produto['id']; ?>" method="POST" enctype="multipart/form-data">
-    <label for="nome">Nome do Produto:</label>
-    <input type="text" name="nome" value="<?php echo $produto['nome']; ?>" required><br>
-
-    <label for="descricao">Descrição:</label>
-    <textarea name="descricao" required><?php echo $produto['descricao']; ?></textarea><br>
-
-    <label for="preco">Preço:</label>
-    <input type="text" name="preco" value="<?php echo $produto['preco']; ?>" required><br>
-
-    <label for="imagem">Imagem:</label>
-    <input type="file" name="imagem"><br>
-
-    <button type="submit">Editar Produto</button>
-</form>

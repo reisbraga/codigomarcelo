@@ -51,22 +51,22 @@
         <form action="editUsuario.php" method="post">
         <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" id="nome" required minlength="5" placeholder="Informe o seu nome">
+                <input type="text" class="form-control" name="nome" id="nome" required minlength="5" placeholder="Informe o seu nome" value="<?php echo $Usuario['NmUsuario']; ?>">
             </div>
 
             <div class="form-group">
                 <label for="endereco">Endereço:</label>
-                <input type="text" class="form-control" name="endereco" id="endereco" required minlength="5" placeholder="Informe o seu endereço">
+                <input type="text" class="form-control" name="endereco" id="endereco" required minlength="5" placeholder="Informe o seu endereço" value="<?php echo $Usuario['Endereco']; ?>">
             </div>
 
             <div class="form-group">
                 <label for="telefone">Telefone:</label>
-                <input type="text" class="form-control" name="telefone" id="telefone" required minlength="5" placeholder="Informe o seu telefone">
+                <input type="text" class="form-control" name="telefone" id="telefone" required minlength="5" placeholder="Informe o seu telefone" value="<?php echo $Usuario['FoneUsuario']; ?>">
             </div>
             
             <div class="form-group">
                 <label for="email">E-mail:</label>
-                <input type="text" class="form-control" name="email" id="email" required minlength="5" placeholder="Informe o seu E-mail">
+                <input type="text" class="form-control" name="email" id="email" required minlength="5" placeholder="Informe o seu E-mail" value="<?php echo $Usuario['EmailUsuario']; ?>">
             </div>
             <input type="hidden" name="Id" value="<?php echo $Id; ?>">
             <button type="submit" class="btn btn-primary">Enviar</button>

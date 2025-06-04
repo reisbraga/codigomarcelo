@@ -1,38 +1,27 @@
 <?php
-include('../config/database.php');
+require_once '../init.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $preco = $_POST['preco'];
-    $imagem = $_FILES['imagem']['name'];
+$nomeproduto = isset($_POST['nomeproduto']) ? $_POST['nomeproduto'] : null;
+$preco = isset($_POST['preco']) ? $_POST['preco'] : null;
+$qtdestoque = isset($_POST['qtdestoque']) ? $_POST['qtdestoque'] : null;
+$desc = isset($_POST['desc']) ? $_POST['desc'] : null;
 
-    // Movimento do arquivo da imagem para a pasta de uploads
-    $targetDir = "../assets/images/";
-    $targetFile = $targetDir . basename($imagem);
-    move_uploaded_file($_FILES['imagem']['tmp_name'], $targetFile);
+if (empty($nomeproduto) || empty($preco) || empty($qtdestoque) || empty($desc)) {
+    header('Location: ../msg/msgErro.html');
+}
 
-    // Inserção no banco de dados
-    $sql = "INSERT INTO produtos (nome, descricao, preco, imagem) VALUES (?, ?, ?, ?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$nome, $descricao, $preco, $imagem]);
+$PDO = db_connect();
+$sql = "INSERT INTO Produto (NmProduto, PrecoProduto, QtdEstoqueProduto, DescProduto) VALUES (:nomeproduto, :preco, :qtdestoque, :desc)";
+$stmt = $PDO->prepare($sql);
 
-    echo "Produto adicionado com sucesso!";
+$stmt->bindParam(':nomeproduto', $nomeproduto);
+$stmt->bindParam(':preco', $preco);
+$stmt->bindParam(':qtdestoque', $qtdestoque, PDO::PARAM_INT);
+$stmt->bindParam(':desc', $desc);
+
+if ($stmt->execute()) {
+    header('Location: ../msg/msgSucesso.html');
+} else {
+    header('Location: ../msg/msgErro.html');
 }
 ?>
-
-<form action="addProduto.php" method="POST" enctype="multipart/form-data">
-    <label for="nome">Nome do Produto:</label>
-    <input type="text" name="nome" required><br>
-
-    <label for="descricao">Descrição:</label>
-    <textarea name="descricao" required></textarea><br>
-
-    <label for="preco">Preço:</label>
-    <input type="text" name="preco" required><br>
-
-    <label for="imagem">Imagem:</label>
-    <input type="file" name="imagem" required><br>
-
-    <button type="submit">Adicionar Produto</button>
-</form>
