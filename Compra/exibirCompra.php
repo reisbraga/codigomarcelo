@@ -2,10 +2,10 @@
 require_once '../init.php';
 
 $PDO = db_connect();
-$sql = "SELECT C.idCompra, C.DtCompra, C.StatusPagamento, Cl.Nome 
+$sql = "SELECT C.idCompra, C.DtCompra, U.NmUsuario 
         FROM Compra AS C 
-        INNER JOIN Cliente AS Cl ON C.IdCliente = Cl.Id 
-        ORDER BY C.Id DESC";
+        INNER JOIN Usuario AS U ON C.Usuario_idUsuario = U.idUsuario
+        ORDER BY C.idCompra DESC";
 $stmt = $PDO->prepare($sql);
 $stmt->execute();
 ?>
@@ -23,7 +23,7 @@ $stmt->execute();
     <script src="../bootstrap/js/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#menu").load("../navbar/navbar.html");
+            $("#menu").load("../Navbar/navbar.html");
         });
     </script>
 </head>
@@ -41,24 +41,21 @@ $stmt->execute();
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Data e Hora da Compra</th>
+                    <th scope="col">Data da Compra</th>
                     <th scope="col">Cliente</th>
-                    <th scope="col">Status do Pagamento</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while ($dados = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr>
-                    <th scope="row"><?php echo $dados['Id']; ?></th>
-                    <td><input type="datetime-local" readonly value="<?php echo $dados['DataHora']; ?>"></td>
-                    <td><?php echo $dados['Nome']; ?></td>
-                    <td><?php echo $dados['StatusPagamento']; ?></td>
+                    <th scope="row"><?php echo $dados['idCompra']; ?></th>
+                    <td><input type="date" readonly value="<?php echo $dados['DtCompra']; ?>"></td>
+                    <td><?php echo $dados['NmUsuario']; ?></td>
                     <td>
-                        <a class="btn btn-primary" href="../pedidos/formAddPedido.php?Id=<?php echo $dados['Id']; ?>">Adicionar Produtos</a>
-                        <a class="btn btn-secondary" href="../pedidos/exibirPedido.php?Id=<?php echo $dados['Id']; ?>">Ver Produtos</a>
-                        <a class="btn btn-info" href="formEditCompra.php?Id=<?php echo $dados['Id']; ?>">Editar</a>
-                        <a class="btn btn-danger" href="deleteCompra.php?Id=<?php echo $dados['Id']; ?>" onclick="return confirm('Tem certeza de que deseja remover?');">Remover</a>
+                        <a class="btn btn-primary" href="../Produto_Compra/formAddProduto_Compra.php?idCompra=<?php echo $dados['idCompra']; ?>">Adicionar Produtos</a>
+                        <a class="btn btn-secondary" href="../Produto_Compra/exibirProduto_Compra.php?idCompra=<?php echo $dados['idCompra']; ?>">Ver Produtos</a>
+                        <a class="btn btn-danger" href="../Produto_Compra/deleteProdutoCompra.php?idCompra=<?php echo $dados['idCompra']; ?>" onclick="return confirm('Tem certeza de que deseja remover?');">Remover</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

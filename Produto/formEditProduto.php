@@ -51,7 +51,7 @@
         <form action="editProduto.php" method="post">
         <div class="form-group">
                 <label for="nomeproduto">Nome:</label>
-                <input type="text" class="form-control" name="nomeproduto" id="nomeproduto" required minlength="5" placeholder="Informe o nome do produto" value="<?php echo $Produto['NmProduto']; ?>">
+                <input type="text" class="form-control" name="nomeproduto" id="nomeproduto" required placeholder="Informe o nome do produto" value="<?php echo $Produto['NmProduto']; ?>">
             </div>
 
             <div class="form-group">
@@ -61,12 +61,12 @@
 
             <div class="form-group">
                 <label for="qtdestoque">Quantidade em Estoque:</label>
-                <input type="number" class="form-control" name="qtdestoque" id="qtdestoque" required minlength="5" placeholder="Informe a quantidade em estoque" value="<?php echo $Produto['QtdEstoqueProduto']; ?>">
+                <input type="number" class="form-control" name="qtdestoque" id="qtdestoque" required  placeholder="Informe a quantidade em estoque" value="<?php echo $Produto['QtdEstoqueProduto']; ?>">
             </div>
             
             <div class="form-group">
                 <label for="desc">Descrição do Produto:</label>
-                <input type="text" class="form-control" name="desc" id="desc" required minlength="5" placeholder="Informe a Descrição do produto" value="<?php echo $Produto['DescProduto']; ?>">
+                <input type="text" class="form-control" name="desc" id="desc" required  placeholder="Informe a Descrição do produto" value="<?php echo $Produto['DescProduto']; ?>">
             </div>
             <input type="hidden" name="Id" value="<?php echo $Id; ?>">
             <button type="submit" class="btn btn-primary">Enviar</button>

@@ -1,19 +1,19 @@
 <?php
-require_once '../scripts/init.php';
+require_once '../init.php';
 
-$DataHora = isset($_POST['DataHora']) ? $_POST['DataHora'] : null;
-$Usuario = isset($_POST['Usuario']) ? $_POST['Usuario'] : null;
+$data = isset($_POST['data']) ? $_POST['data'] : null;
+$usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
 
-if (empty($DataHora) || empty($Usuario)) {
+if (empty($data) || empty($usuario)) {
     header('Location: ../msg/msgErro.html');
     exit;
 }
 
 $PDO = db_connect();
-$sql = "INSERT INTO Compra (DataHora, IdUsuario) VALUES (:DataHora, :Usuario)";
+$sql = "INSERT INTO Compra (DtCompra, Usuario_idUsuario) VALUES (:data, :usuario)";
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':DataHora', $DataHora);
-$stmt->bindParam(':Usuario', $Usuario);
+$stmt->bindParam(':data', $data);
+$stmt->bindParam(':usuario', $usuario);
 
 if ($stmt->execute()) {
     header('Location: ../msg/msgSucessoCompra.html');
