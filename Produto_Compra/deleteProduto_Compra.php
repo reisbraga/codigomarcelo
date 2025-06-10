@@ -1,5 +1,5 @@
 <?php
-    require_once '../scripts/init.php';
+    require_once '../init.php';
 
     $Id = isset($_GET['Id']) ? $_GET['Id'] : null;
 
@@ -11,7 +11,7 @@
     $PDO = db_connect();
     $stmtPedido->execute();
     $stmt = $PDO->prepare($sql);
-    $sql = "DELETE FROM Pedido WHERE Id = :Id";
+    $sql = "DELETE FROM Produto_Compra WHERE Id = :Id";
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {

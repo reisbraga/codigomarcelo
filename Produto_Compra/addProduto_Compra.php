@@ -3,6 +3,7 @@ require_once '../init.php';
 
 $Produto = isset($_POST['produto']) ? $_POST['produto'] : null;
 $Compra = isset($_POST['idCompra']) ? $_POST['idCompra'] : null;
+$Id = isset($_POST['idProduto_Compra']) ? $_POST['idCompra'] : null;
 
 if (empty($Produto) || empty($Compra)) {
     header('Location: ../msg/msgErro.html');
@@ -10,7 +11,7 @@ if (empty($Produto) || empty($Compra)) {
 }
 
 $PDO = db_connect();
-$sql = "INSERT INTO Produto_Compra (Produto_idProduto, Compra_idCompra) VALUES (:Produto, :Compra)";
+$sql = "INSERT INTO Produto_Compra (idProduto_Compra, Produto_idProduto, Compra_idCompra) VALUES (:id, :Produto, :Compra)";
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':Produto', $Produto);
 $stmt->bindParam(':Compra', $Compra);

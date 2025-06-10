@@ -1,14 +1,14 @@
 <?php
     require_once '../init.php';
 
-    $Id = isset($_GET['Id']) ? $_GET['Id'] : null;
+    $idCompra = isset($_GET['idCompra']) ? $_GET['idCompra'] : null;
 
     $PDO = db_connect();
-    $sql = "SELECT P.idProduto, P.NmProduto, P.PrecoProduto, P.DescProduto, Pc.Id, C.idCompra, Pc.Produto_idProduto
+    $sql = "SELECT P.idProduto, P.NmProduto, P.PrecoProduto, P.DescProduto, PC.idProduto_Compra, C.idCompra, PC.Produto_idProduto
             FROM Produto AS P
-            INNER JOIN Produto_Compra AS Pc ON P.idProduto = Pc.Produto_idProduto
-            INNER JOIN Compra AS C ON Pe.Compra_idCompra = C.idCompra
-            WHERE C.idCompra = $Id
+            INNER JOIN Produto_Compra AS PC ON P.idProduto = PC.Produto_idProduto
+            INNER JOIN Compra AS C ON PC.Compra_idCompra = C.idCompra
+            WHERE C.idCompra = $idCompra
             ORDER BY C.idCompra DESC";
             
     $stmt = $PDO->prepare($sql);
@@ -45,25 +45,25 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Id Produto</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Descrição</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while ($dados = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr>
-                    <th scope="row"><?php echo $dados['IdProduto']; ?></th>
-                    <td><?php echo $dados['Nome']; ?></td>
-                    <td><?php echo $dados['Valor']; ?></td>
-                    <td><?php echo $dados['Tipo']; ?></td>                    
+                    <th scope="row"><?php echo $dados['idProduto']; ?></th>
+                    <td><?php echo $dados['NmProduto']; ?></td>
+                    <td><?php echo $dados['PrecoProduto']; ?></td>
+                    <td><?php echo $dados['DesProduto']; ?></td>                    
                 </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
         
-            <a class="btn btn-secondary" href="../compras/exibirCompras.php">Voltar</a>
+            <a class="btn btn-secondary" href="../Compra/exibirCompra.php">Voltar</a>
         
     </div>
 

@@ -1,7 +1,7 @@
 <?php
 require '../init.php';
 
-$idCompra = isset($_GET['idCompra']) ? (int) $_GET['idCompra'] : null;
+$id = isset($_GET['idCompra']) ? (int) $_GET['idCompra'] : null;
 
 if (empty($idCompra)) {
     header('Location: ../msg/msgErro.html');
