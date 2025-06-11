@@ -15,7 +15,7 @@ $stmt->execute();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cachorro Bobo</title>
-    <link rel="icon" href="assets/logo_Bobo.png">
+    <link rel="icon" href="../assets/logo_Bobo.png">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
@@ -30,19 +30,20 @@ $stmt->execute();
     <div id="menu"></div>
 
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron bg-dark-blue" >
             <p class="h3 text-center">Produtos cadastrados</p>
         </div>
     </div>
 
     <div class="container">
+    <div class="jumbotron bg-dark-blue" >
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Endereço</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">E-mail</th>
+                    <th scope="col" style="color: #f8bfff">Nome</th>
+                    <th scope="col" style="color: #f8bfff">Endereço</th>
+                    <th scope="col" style="color: #f8bfff">Telefone</th>
+                    <th scope="col" style="color: #f8bfff">E-mail</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,12 +62,19 @@ $stmt->execute();
                 <?php endwhile; ?>
             </tbody>
         </table>
+                </div>
     </div>
 
-    <div class="container">
-        <div class="card-footer">
-            <p class="h6 text-center">Todos os direitos reservados &copy; Copyright</p>
+    <footer class="text-muted">
+        <div class="container">
+          <p class="float-right"><a href="#">Voltar ao topo</a></p>
+          <h3 style="color: white">&copy; Cachorro Bobo</h3>
         </div>
-    </div>
+      </footer>
+    <style>
+        .bg-dark-blue {
+          background-color: #873ba5;
+        }
+      </style>
 </body>
 </html>

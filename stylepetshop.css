@@ -9,29 +9,32 @@
 header{
     display: flex;
     align-items: center;
-    background-color: rgb(120, 197, 238);
+    background-color: rgb(154, 2, 214);
     font-size: 1.5rem;
-    color: rgb(12, 107, 131);
+    color: rgb(32, 131, 12);
     height: 3rem;
     text-decoration: none;
     font-weight: bold;
 }
 
 body{
-    background-image: url("assets/inicio.png");
-    color: rgb(93, 176, 25);
+    
+    color: rgb(255, 208, 0);
+    font-weight: bolder;
+    background-color: #f8bfff;
 }
 
 main{
-    margin: 12rem;
+    margin: 9.46rem;
+
 }
 
 footer{
-    background-color: #1E2A7B;
+    background-color: #b700ff;
 }
 
 footer a{
-    color: #CF2CFD;
+    color: #fff2b0;
 }
 
 .container{
