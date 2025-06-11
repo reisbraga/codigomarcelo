@@ -1,7 +1,8 @@
 <?php
     require_once '../init.php';
 
-    $Id = isset($_GET['Id']) ? $_GET['Id'] : null;
+
+    $Id = isset($_GET['Produto_idProduto']) ? $_GET['Produto_idProduto'] : null;
 
     if (empty($Id)) {
         header('Location: ../msg/msgErro.html');
@@ -9,10 +10,10 @@
     }
 
     $PDO = db_connect();
-    $stmtPedido->execute();
+
+    $sql = "DELETE FROM Produto_Compra WHERE Produto_idProduto = :Id";
     $stmt = $PDO->prepare($sql);
-    $sql = "DELETE FROM Produto_Compra WHERE Id = :Id";
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':Id', $Id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         header('Location: ../msg/msgSucessoCompra.html');
@@ -20,5 +21,6 @@
         header('Location: ../msg/msgErro.html');
     }
     exit;
+    
 
 ?>

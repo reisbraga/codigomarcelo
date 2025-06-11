@@ -1,7 +1,7 @@
 <?php
 require_once '../init.php';
 
-$Id = isset($_GET['Id']) ? $_GET['Id'] : null;
+$Id = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : null;
 
 if (empty($Id)) {
     header('Location: ../msg/msgErro.html');
@@ -11,7 +11,7 @@ if (empty($Id)) {
 $PDO = db_connect();
 
 // Verificar se existe alguma compra para este cliente
-$sqlCompra = "SELECT COUNT(*) AS total FROM Compra WHERE idUsuario = :Id";
+$sqlCompra = "SELECT COUNT(*) AS total FROM Compra WHERE Usuario_idUsuario = :Id";
 $stmtCompra = $PDO->prepare($sqlCompra);
 $stmtCompra->bindParam(':Id', $Id, PDO::PARAM_INT);
 $stmtCompra->execute();
@@ -22,7 +22,7 @@ if ($total > 0) {
     exit;
 
 } else {
-    $sql = "DELETE FROM Usuario WHERE Id = :Id";
+    $sql = "DELETE FROM Usuario WHERE idUsuario = :Id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':Id', $Id, PDO::PARAM_INT);
     

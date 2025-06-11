@@ -1,25 +1,36 @@
 <?php
-include('../config/database.php');
+require_once '../init.php';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+$Id = isset($_GET['idProduto']) ? $_GET['idProduto'] : null;
 
-    // Busca o produto pelo id
-    $sql = "SELECT * FROM produtos WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $produto = $stmt->fetch();
+if (empty($Id)) {
+    header('Location: ../msg/msgErro.html');
+    exit;
+}
 
-    // Deleta o produto do banco de dados
-    $sql = "DELETE FROM produtos WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
+$PDO = db_connect();
 
-    // Deleta a imagem do produto, se existir
-    if ($produto['imagem']) {
-        unlink('../assets/images/' . $produto['imagem']);
+// Verificar se existe alguma compra para este cliente
+$sqlCompra = "SELECT COUNT(*) AS total FROM Produto_Compra WHERE Produto_idProduto = :Id";
+$stmtCompra = $PDO->prepare($sqlCompra);
+$stmtCompra->bindParam(':Id', $Id, PDO::PARAM_INT);
+$stmtCompra->execute();
+$total = $stmtCompra->fetchColumn();
+
+if ($total > 0) {
+    header('Location: ../msg/msgErro.html');
+    exit;
+
+} else {
+    $sql = "DELETE FROM Produto WHERE idProduto = :Id";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':Id', $Id, PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+        header('Location: ../msg/msgSucesso.html');
+    } else {
+        header('Location: ../msg/msgErro.html');
     }
-
-    echo "Produto excluído com sucesso!";
+    exit;
 }
 ?>

@@ -15,6 +15,7 @@ $stmt->execute();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cachorro Bobo</title>
+    <link rel="icon" href="assets/logo_Bobo.png">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>

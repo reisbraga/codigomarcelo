@@ -16,7 +16,8 @@ $stmt->execute();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jardineira</title>
+    <title>Cachorro Bobo</title>
+    <link rel="icon" href="assets/logo_Bobo.png">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
@@ -55,7 +56,7 @@ $stmt->execute();
                     <td>
                         <a class="btn btn-primary" href="../Produto_Compra/formAddProduto_Compra.php?idCompra=<?php echo $dados['idCompra']; ?>">Adicionar Produtos</a>
                         <a class="btn btn-secondary" href="../Produto_Compra/exibirProduto_Compra.php?idCompra=<?php echo $dados['idCompra']; ?>">Ver Produtos</a>
-                        <a class="btn btn-danger" href="../Produto_Compra/deleteProdutoCompra.php?idCompra=<?php echo $dados['idCompra']; ?>" onclick="return confirm('Tem certeza de que deseja remover?');">Remover</a>
+                        <a class="btn btn-danger" href="../Compra/deleteCompra.php?idCompra=<?php echo $dados['idCompra']; ?>" onclick="return confirm('Tem certeza de que deseja remover?');">Remover</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
